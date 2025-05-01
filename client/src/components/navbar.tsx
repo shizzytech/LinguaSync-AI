@@ -19,10 +19,8 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-white border-b border-gray-200 py-4 px-6 sticky top-0 z-30">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/">
-          <a className="flex items-center">
-            <Logo />
-          </a>
+        <Link href="/" className="flex items-center">
+          <Logo />
         </Link>
 
         {/* Desktop Navigation */}
@@ -42,9 +40,11 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center space-x-4">
           {isAuthenticated ? (
             <>
-              <Link href="/dashboard">
-                <Button variant="outline">Dashboard</Button>
-              </Link>
+              <Button variant="outline" asChild>
+                <Link href="/dashboard">
+                  Dashboard
+                </Link>
+              </Button>
               <Button onClick={() => logout()}>Log Out</Button>
             </>
           ) : (
@@ -98,15 +98,16 @@ const Navbar: React.FC = () => {
               <div className="pt-4 border-t border-gray-200">
                 {isAuthenticated ? (
                   <>
-                    <Link href="/dashboard">
-                      <Button 
-                        variant="outline" 
-                        className="w-full mb-3"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
+                    <Button 
+                      variant="outline" 
+                      className="w-full mb-3"
+                      asChild
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <Link href="/dashboard">
                         Dashboard
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
                     <Button 
                       className="w-full" 
                       onClick={() => {
