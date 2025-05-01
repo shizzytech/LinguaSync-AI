@@ -1,0 +1,144 @@
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { queryClient } from "@/lib/queryClient";
+import { LoginCredentials, RegisterData, User } from "@shared/schema";
+
+interface AuthContextType {
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  login: (credentials: LoginCredentials) => Promise<void>;
+  register: (data: RegisterData) => Promise<void>;
+  logout: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
+
+  // Check if user is authenticated on initial load
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('/api/auth/me');
+        const data = await res.json();
+        if (data?.user) {
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error("Auth check failed", error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    checkAuth();
+  }, []);
+
+  const loginMutation = useMutation({
+    mutationFn: async (credentials: LoginCredentials) => {
+      const res = await apiRequest('POST', '/api/auth/login', credentials);
+      return res.json();
+    },
+    onSuccess: (data) => {
+      setUser(data.user);
+      toast({
+        title: "Logged in successfully",
+        description: "Welcome back to LinguaSync AI!",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Login failed",
+        description: error.message || "Please check your credentials and try again",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const registerMutation = useMutation({
+    mutationFn: async (data: RegisterData) => {
+      const res = await apiRequest('POST', '/api/auth/register', data);
+      return res.json();
+    },
+    onSuccess: (data) => {
+      setUser(data.user);
+      toast({
+        title: "Registration successful",
+        description: "Welcome to LinguaSync AI!",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Registration failed",
+        description: error.message || "Please check your information and try again",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest('POST', '/api/auth/logout', {});
+      return res.json();
+    },
+    onSuccess: () => {
+      setUser(null);
+      toast({
+        title: "Logged out successfully",
+        description: "You have been logged out of your account",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
+    },
+    onError: () => {
+      toast({
+        title: "Logout failed",
+        description: "There was a problem logging out",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const login = async (credentials: LoginCredentials) => {
+    await loginMutation.mutateAsync(credentials);
+  };
+
+  const register = async (data: RegisterData) => {
+    await registerMutation.mutateAsync(data);
+  };
+
+  const logout = async () => {
+    await logoutMutation.mutateAsync();
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        isLoading,
+        login,
+        register,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
