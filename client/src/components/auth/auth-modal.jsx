@@ -69,8 +69,13 @@ const AuthModal = () => {
   };
 
   const onRegisterSubmit = async (data) => {
-    await registerUser(data);
-    closeModal();
+    try {
+      await registerUser(data);
+      closeModal();
+    } catch (error) {
+      // Don't close modal on error
+      console.error("Registration error:", error.message);
+    }
   };
 
   return (
