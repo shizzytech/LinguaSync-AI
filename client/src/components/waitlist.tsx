@@ -117,7 +117,7 @@ const Waitlist: React.FC = () => {
                   <FormItem>
                     <Select
                       onValueChange={field.onChange}
-                      value={field.value === "" ? undefined : field.value}
+                      value={field.value as string | undefined}
                     >
                       <FormControl>
                         <SelectTrigger className="px-4 py-3 rounded-md bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-300">

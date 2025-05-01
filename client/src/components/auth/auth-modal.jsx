@@ -23,13 +23,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SocialButton from "@/components/ui/social-button";
 import { useAuth } from "@/context/auth-context";
 import { loginSchema, registerSchema } from "@shared/schema";
-import { useAuthModal } from "@/hooks/use-auth-modal";
-
-// Export the AuthMode type
-export const AUTH_MODES = {
-  LOGIN: "login",
-  SIGNUP: "signup"
-};
+import { useAuthModal, AUTH_MODES } from "@/hooks/use-auth-modal";
 
 const AuthModal = () => {
   const { login, register: registerUser } = useAuth();
@@ -64,8 +58,13 @@ const AuthModal = () => {
   }, [mode]);
 
   const onLoginSubmit = async (data) => {
-    await login(data);
-    closeModal();
+    try {
+      await login(data);
+      closeModal();
+    } catch (error) {
+      // Don't close modal on error
+      console.error("Login error:", error.message);
+    }
   };
 
   const onRegisterSubmit = async (data) => {

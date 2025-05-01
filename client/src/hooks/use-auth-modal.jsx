@@ -1,5 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
 
+// Define the AuthMode constants
+export const AUTH_MODES = {
+  LOGIN: "login",
+  SIGNUP: "signup"
+};
+
 const AuthModalContext = createContext(undefined);
 
 export const AuthModalProvider = ({ children }) => {
