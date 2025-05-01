@@ -77,14 +77,6 @@ const AuthModal: React.FC = () => {
           <DialogTitle className="text-2xl font-bold">
             {activeTab === "login" ? "Log In" : "Sign Up"}
           </DialogTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-4 top-4"
-            onClick={closeModal}
-          >
-            <X className="h-4 w-4" />
-          </Button>
         </DialogHeader>
 
         <Tabs
