@@ -55,9 +55,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
     },
     onError: (error: any) => {
+      const errorMessage = error.message || "Please check your credentials and try again";
+      
+      // Display user-friendly error message
+      let title = "Login failed";
+      let description = errorMessage;
+      
+      if (errorMessage.includes("Invalid credentials")) {
+        description = "The email or password you entered is incorrect. Please try again.";
+      }
+      
       toast({
-        title: "Login failed",
-        description: error.message || "Please check your credentials and try again",
+        title,
+        description,
         variant: "destructive",
       });
     },
@@ -77,9 +87,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
     },
     onError: (error: any) => {
+      const errorMessage = error.message || "Please check your information and try again";
+      
+      // Display user-friendly error message
+      let title = "Registration failed";
+      let description = errorMessage;
+      
+      if (errorMessage.includes("Email already in use")) {
+        description = "This email is already registered. Please use a different email or try logging in.";
+      }
+      
       toast({
-        title: "Registration failed",
-        description: error.message || "Please check your information and try again",
+        title,
+        description,
         variant: "destructive",
       });
     },
@@ -135,10 +155,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-export const useAuth = () => {
+// Separate export for useAuth to avoid Fast Refresh issues
+function useAuthInternal() {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
-};
+}
+
+export const useAuth = useAuthInternal;
