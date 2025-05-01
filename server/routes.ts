@@ -10,21 +10,34 @@ import {
 } from "@shared/schema";
 import bcrypt from "bcrypt";
 import session from "express-session";
-import MemoryStore from "memorystore";
+import { pool } from "./db";
+import connectPgSimple from "connect-pg-simple";
+
+// Define custom session data
+declare module 'express-session' {
+  interface SessionData {
+    userId: number;
+  }
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Setup session middleware
-  const SessionStore = MemoryStore(session);
+  // Setup session middleware with PostgreSQL store
+  const PgStore = connectPgSimple(session);
   
   app.use(
     session({
+      store: new PgStore({
+        pool,
+        tableName: 'session', // Use 'session' as default table name
+        createTableIfMissing: true // Auto-create the sessions table
+      }),
       secret: process.env.SESSION_SECRET || "linguasync-secret-key",
       resave: false,
       saveUninitialized: false,
-      cookie: { secure: process.env.NODE_ENV === "production", maxAge: 86400000 }, // 24 hours
-      store: new SessionStore({
-        checkPeriod: 86400000 // prune expired entries every 24h
-      })
+      cookie: { 
+        secure: process.env.NODE_ENV === "production", 
+        maxAge: 86400000 // 24 hours
+      }
     })
   );
 
