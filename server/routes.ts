@@ -162,7 +162,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Check if email already exists in waitlist
       const existingEntry = await storage.getWaitlistEntryByEmail(data.email);
       if (existingEntry) {
-        return res.status(409).json({ message: "Email already on waitlist" });
+        // Return a 200 status with a message rather than an error
+        // This prevents the error modal from showing but still informs the user
+        return res.status(200).json({ 
+          message: "Email already on waitlist",
+          alreadyRegistered: true,
+          entry: existingEntry
+        });
       }
       
       // Create waitlist entry

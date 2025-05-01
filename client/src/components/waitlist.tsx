@@ -45,7 +45,19 @@ const Waitlist: React.FC = () => {
       const res = await apiRequest("POST", "/api/waitlist", data);
       return res.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      // Check if this is an "already registered" success response
+      if (data.alreadyRegistered) {
+        toast({
+          title: "Already on the waitlist",
+          description: "You're already on our waitlist! We'll notify you when access is available.",
+          variant: "default",
+        });
+        form.reset();
+        return;
+      }
+      
+      // Regular success response
       toast({
         title: "Successfully joined the waitlist!",
         description: "Check your email for confirmation.",
@@ -53,9 +65,11 @@ const Waitlist: React.FC = () => {
       form.reset();
     },
     onError: (error: any) => {
+      const errorMessage = error.message || "Please try again later";
+      
       toast({
         title: "Error joining waitlist",
-        description: error.message || "Please try again later",
+        description: errorMessage,
         variant: "destructive",
       });
     },
@@ -103,7 +117,7 @@ const Waitlist: React.FC = () => {
                   <FormItem>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      value={field.value === "" ? undefined : field.value}
                     >
                       <FormControl>
                         <SelectTrigger className="px-4 py-3 rounded-md bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-300">
