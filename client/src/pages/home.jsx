@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "@/components/navbar.jsx";
-import Hero from "@/components/hero";
+import Hero from "@/components/hero.jsx";
 import Features from "@/components/features";
 import DashboardPreview from "@/components/dashboard-preview";
 import Waitlist from "@/components/waitlist.jsx";

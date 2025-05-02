@@ -148,3 +148,8 @@
 .highlight-yellow {
   @apply bg-accent text-accent-foreground font-bold;
 }
+
+/* Custom blob shape for the hero section */
+.rounded-blob {
+  border-radius: 71% 29% 41% 59% / 59% 43% 57% 41%;
+}
