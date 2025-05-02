@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import {
@@ -79,11 +80,14 @@ const AuthModal = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={closeModal}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-black border border-secondary/30">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">
+          <DialogTitle className="text-2xl font-bold text-white">
             {activeTab === AUTH_MODES.LOGIN ? "Log In" : "Sign Up"}
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            {activeTab === AUTH_MODES.LOGIN ? "Log in to your LinguaSync account" : "Create a new LinguaSync account"}
+          </DialogDescription>
         </DialogHeader>
 
         <Tabs
@@ -92,9 +96,19 @@ const AuthModal = () => {
           onValueChange={(value) => setActiveTab(value)}
           className="w-full"
         >
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value={AUTH_MODES.SIGNUP}>Sign Up</TabsTrigger>
-            <TabsTrigger value={AUTH_MODES.LOGIN}>Log In</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 mb-6 bg-gray-900">
+            <TabsTrigger 
+              value={AUTH_MODES.SIGNUP}
+              className="data-[state=active]:bg-primary data-[state=active]:text-white"
+            >
+              Sign Up
+            </TabsTrigger>
+            <TabsTrigger 
+              value={AUTH_MODES.LOGIN}
+              className="data-[state=active]:bg-primary data-[state=active]:text-white"
+            >
+              Log In
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value={AUTH_MODES.SIGNUP}>
@@ -108,7 +122,7 @@ const AuthModal = () => {
                   name="username"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Username</FormLabel>
+                      <FormLabel className="text-white">Username</FormLabel>
                       <FormControl>
                         <Input placeholder="username" {...field} />
                       </FormControl>
@@ -155,7 +169,7 @@ const AuthModal = () => {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white glow-effect transition-all duration-300">
                   Create Account
                 </Button>
               </form>
@@ -211,7 +225,7 @@ const AuthModal = () => {
                     Forgot password?
                   </a>
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white glow-effect transition-all duration-300">
                   Log In
                 </Button>
               </form>
@@ -221,10 +235,10 @@ const AuthModal = () => {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300" />
+            <div className="w-full border-t border-gray-700" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500">
+            <span className="px-2 bg-black text-gray-400">
               Or continue with
             </span>
           </div>
