@@ -3,49 +3,65 @@
 @tailwind utilities;
 
 :root {
-      --background: 0 0% 100%;
---foreground: 20 14.3% 4.1%;
---muted: 60 4.8% 95.9%;
---muted-foreground: 25 5.3% 44.7%;
---popover: 0 0% 100%;
---popover-foreground: 20 14.3% 4.1%;
---card: 0 0% 100%;
---card-foreground: 20 14.3% 4.1%;
---border: 20 5.9% 90%;
---input: 20 5.9% 90%;
---primary: 207 90% 54%;
---primary-foreground: 211 100% 99%;
---secondary: 60 4.8% 95.9%;
---secondary-foreground: 24 9.8% 10%;
---accent: 60 4.8% 95.9%;
---accent-foreground: 24 9.8% 10%;
---destructive: 0 84.2% 60.2%;
---destructive-foreground: 60 9.1% 97.8%;
---ring: 20 14.3% 4.1%;
---radius: 0.5rem;
-  }
-  .dark {
-      --background: 240 10% 3.9%;
---foreground: 0 0% 98%;
---muted: 240 3.7% 15.9%;
---muted-foreground: 240 5% 64.9%;
---popover: 240 10% 3.9%;
---popover-foreground: 0 0% 98%;
---card: 240 10% 3.9%;
---card-foreground: 0 0% 98%;
---border: 240 3.7% 15.9%;
---input: 240 3.7% 15.9%;
---primary: 207 90% 54%;
---primary-foreground: 211 100% 99%;
---secondary: 240 3.7% 15.9%;
---secondary-foreground: 0 0% 98%;
---accent: 240 3.7% 15.9%;
---accent-foreground: 0 0% 98%;
---destructive: 0 62.8% 30.6%;
---destructive-foreground: 0 0% 98%;
---ring: 240 4.9% 83.9%;
---radius: 0.5rem;
-  }
+  /* Based on the sleek black & white design with purple, green, yellow accents */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  
+  /* Purple accent from the image */
+  --primary: 270 100% 72%;
+  --primary-foreground: 0 0% 100%;
+  
+  /* Neon green from the image */
+  --secondary: 142 100% 60%;
+  --secondary-foreground: 0 0% 0%;
+  
+  /* Yellow highlight */
+  --accent: 53 100% 60%;
+  --accent-foreground: 0 0% 0%;
+  
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 270 100% 72%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 65%;
+  --popover: 0 0% 0%;
+  --popover-foreground: 0 0% 100%;
+  --card: 0 0% 0%;
+  --card-foreground: 0 0% 100%;
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  
+  /* Purple accent from the image */
+  --primary: 270 100% 72%;
+  --primary-foreground: 0 0% 100%;
+  
+  /* Neon green from the image */
+  --secondary: 142 100% 60%;
+  --secondary-foreground: 0 0% 0%;
+  
+  /* Yellow highlight */
+  --accent: 53 100% 60%;
+  --accent-foreground: 0 0% 0%;
+  
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 270 100% 72%;
+  --radius: 0.5rem;
+}
 
 @layer base {
   * {
@@ -55,4 +71,80 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
+}
+
+/* Custom animations for nav items */
+@keyframes navHoverAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 5px rgba(142, 255, 152, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(142, 255, 152, 0.8), 0 0 30px rgba(142, 255, 152, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(142, 255, 152, 0.6);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.nav-item {
+  @apply relative px-3 py-2 font-medium transition-colors;
+}
+
+.nav-item::after {
+  content: '';
+  @apply absolute bottom-0 left-0 h-[2px] w-0 bg-secondary transition-all duration-300;
+}
+
+.nav-item:hover::after {
+  @apply w-full;
+}
+
+.nav-item-active {
+  @apply text-primary;
+}
+
+.nav-item-active::after {
+  @apply w-full bg-primary;
+}
+
+.animated-gradient-bg {
+  background: linear-gradient(-45deg, #000000, #0f0f0f, #2a0e4a, #101010);
+  background-size: 400% 400%;
+  animation: navHoverAnimation 15s ease infinite;
+}
+
+.glow-effect {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.float-animation {
+  animation: float 5s ease-in-out infinite;
+}
+
+.highlight-yellow {
+  @apply bg-accent text-accent-foreground font-bold;
 }
