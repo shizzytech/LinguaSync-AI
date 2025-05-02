@@ -135,7 +135,7 @@ const AuthModal = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email address</FormLabel>
+                      <FormLabel className="text-white">Email address</FormLabel>
                       <FormControl>
                         <Input placeholder="example@example.com" {...field} />
                       </FormControl>
@@ -148,7 +148,7 @@ const AuthModal = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel className="text-white">Password</FormLabel>
                       <FormControl>
                         <Input type="password" {...field} />
                       </FormControl>
@@ -161,7 +161,7 @@ const AuthModal = () => {
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Confirm Password</FormLabel>
+                      <FormLabel className="text-white">Confirm Password</FormLabel>
                       <FormControl>
                         <Input type="password" {...field} />
                       </FormControl>
@@ -187,7 +187,7 @@ const AuthModal = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email address</FormLabel>
+                      <FormLabel className="text-white">Email address</FormLabel>
                       <FormControl>
                         <Input placeholder="example@example.com" {...field} />
                       </FormControl>
@@ -200,7 +200,7 @@ const AuthModal = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel className="text-white">Password</FormLabel>
                       <FormControl>
                         <Input type="password" {...field} />
                       </FormControl>
@@ -213,7 +213,7 @@ const AuthModal = () => {
                     <Checkbox id="remember" />
                     <label
                       htmlFor="remember"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      className="text-sm font-medium leading-none text-gray-300 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       Remember me
                     </label>
