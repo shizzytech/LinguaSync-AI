@@ -1,6 +1,6 @@
 import { Switch, Route } from "wouter";
 import NotFound from "@/pages/not-found";
-import Home from "@/pages/home.jsx";
+import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
 import { useAuth } from "./context/auth-context";
 import { useEffect, useState } from "react";
@@ -17,11 +17,9 @@ function App() {
   }, [isLoading]);
   
   if (!isAppReady) {
-    return (
-      <div className="min-h-screen flex items-center justify-center animated-gradient-bg">
-        <div className="w-10 h-10 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    ); // Loading spinner with our new styling
+    return <div className="min-h-screen flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+    </div>; // Loading spinner
   }
 
   return (

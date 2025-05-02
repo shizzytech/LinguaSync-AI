@@ -49,6 +49,19 @@
   --primary: 270 100% 72%;
   --primary-foreground: 0 0% 100%;
   
+  /* Sidebar colors */
+  --sidebar: 0 0% 3%;
+  --sidebar-foreground: 0 0% 100%;
+  --sidebar-muted-foreground: 0 0% 65%;
+  --sidebar-accent: 0 0% 10%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 0 0% 15%;
+  --sidebar-ring: 270 100% 72%;
+  --sidebar-selected: 270 100% 15%;
+  --sidebar-selected-foreground: 0 0% 100%;
+  --sidebar-badge: 0 0% 10%;
+  --sidebar-badge-foreground: 270 100% 80%;
+  
   /* Neon green from the image */
   --secondary: 142 100% 60%;
   --secondary-foreground: 0 0% 0%;
