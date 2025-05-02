@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "wouter";
-import Navbar from "@/components/navbar";
 import DashboardSidebar from "@/components/dashboard-sidebar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,6 +15,7 @@ import {
   Trophy,
   MessageSquare,
   User,
+  Menu
 } from "lucide-react";
 
 const Dashboard = () => {
