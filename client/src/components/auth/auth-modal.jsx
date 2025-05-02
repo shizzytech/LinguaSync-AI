@@ -85,7 +85,7 @@ const AuthModal = () => {
           <DialogTitle className="text-2xl font-bold text-white">
             {activeTab === AUTH_MODES.LOGIN ? "Log In" : "Sign Up"}
           </DialogTitle>
-          <DialogDescription className="sr-only">
+          <DialogDescription className="text-gray-400 text-sm">
             {activeTab === AUTH_MODES.LOGIN ? "Log in to your LinguaSync account" : "Create a new LinguaSync account"}
           </DialogDescription>
         </DialogHeader>
@@ -220,7 +220,7 @@ const AuthModal = () => {
                   </div>
                   <a
                     href="#"
-                    className="text-sm text-primary hover:text-blue-600"
+                    className="text-sm text-primary hover:text-primary/80 transition-colors"
                   >
                     Forgot password?
                   </a>

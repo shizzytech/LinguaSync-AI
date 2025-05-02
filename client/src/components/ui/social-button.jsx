@@ -7,12 +7,12 @@ const SocialButton = ({ provider, className }) => {
     switch (provider) {
       case "google":
         return {
-          icon: <SiGoogle className="mr-2 h-4 w-4 text-red-500" />,
+          icon: <SiGoogle className="mr-2 h-4 w-4 text-secondary" />,
           label: "Google",
         };
       case "github":
         return {
-          icon: <SiGithub className="mr-2 h-4 w-4 text-gray-800" />,
+          icon: <SiGithub className="mr-2 h-4 w-4 text-accent" />,
           label: "GitHub",
         };
       default:
@@ -33,7 +33,7 @@ const SocialButton = ({ provider, className }) => {
   return (
     <Button
       variant="outline"
-      className={`w-full flex items-center justify-center ${className}`}
+      className={`w-full flex items-center justify-center border-gray-700 bg-gray-900 text-white hover:bg-gray-800 transition-colors ${className}`}
       onClick={handleClick}
     >
       {icon}
