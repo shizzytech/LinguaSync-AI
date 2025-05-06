@@ -3,144 +3,201 @@ import { Button } from "@/components/ui/button";
 import { useAuthModal } from "@/hooks/use-auth-modal";
 import { useAuth } from "@/context/auth-context";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   const { openModal } = useAuthModal();
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="relative overflow-hidden py-16 md:py-24 animated-gradient-bg">
-      {/* Background elements */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-primary/60 blur-3xl"></div>
-        <div className="absolute top-60 right-1/4 h-60 w-60 rounded-full bg-accent/40 blur-3xl"></div>
-        <div className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-secondary/60 blur-3xl"></div>
+    <div className="relative bg-gradient-to-br from-blue-50 to-indigo-50 py-8 xs:py-12 md:py-16 lg:py-20 overflow-hidden">
+      {/* Animated background elements - Adjusted for tablets */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-[300px] xs:w-[500px] lg:w-[600px] h-[300px] xs:h-[500px] lg:h-[600px] -top-20 xs:-top-40 lg:-top-60 -left-20 xs:-left-40 lg:-left-60 bg-blue-200 rounded-full mix-blend-multiply opacity-20 animate-blob"></div>
+        <div className="absolute w-[300px] xs:w-[500px] lg:w-[600px] h-[300px] xs:h-[500px] lg:h-[600px] -bottom-20 xs:-bottom-40 lg:-bottom-60 -right-20 xs:-right-40 lg:-right-60 bg-purple-200 rounded-full mix-blend-multiply opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute w-[300px] xs:w-[500px] lg:w-[600px] h-[300px] xs:h-[500px] lg:h-[600px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-indigo-200 rounded-full mix-blend-multiply opacity-20 animate-blob animation-delay-4000"></div>
       </div>
-      <div className="absolute inset-0 bg-black/50"></div>
 
-      <div className="container relative mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 md:pr-10">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight relative z-10">
-              <span className="block">EASY <span className="text-secondary glow-effect-text">& BEST</span></span>
-              <span className="block mt-1">WAY <span className="inline-block bg-secondary/20 rounded-full p-2 ml-2">
-                <span className="text-secondary font-black">TO</span>
-              </span></span>
-              <span className="block mt-1">LEARNING <span className="text-primary">LANGUAGES</span></span>
-            </h1>
-            <p className="mt-6 text-lg text-gray-300 relative">
-              <span className="before:content-[''] before:w-1 before:h-full before:bg-secondary before:absolute before:-left-4 before:top-0"></span>
-              Advanced AI to personalize your language journey. Learn faster, retain more, and achieve fluency with 
-              <span className="text-white font-medium"> adaptive lessons powered by AI.</span>
-            </p>
+      <div className="container relative mx-auto px-4 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center lg:gap-12">
+          <motion.div 
+            className="w-full md:w-1/2 md:pr-10 lg:pr-0"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.h1 
+              className="text-3xl xs:text-4xl md:text-4xl lg:text-5xl font-bold leading-tight text-center md:text-left"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Master Languages with{" "}
+              <span className="relative inline-block">
+                <span className="relative z-10 bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+                  AI-Powered
+                </span>
+                <span className="absolute inset-0 bg-gradient-to-r from-primary/20 to-blue-600/20 blur-lg transform scale-110"></span>
+              </span>{" "}
+              Learning
+            </motion.h1>
             
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="rounded-lg border border-primary/30 p-5 bg-black/40 backdrop-blur-sm hover:border-primary/70 transition-all duration-300 group">
-                <p className="font-medium text-gray-400 text-sm flex items-center">
-                  <span className="inline-block w-2 h-2 rounded-full bg-primary mr-2"></span>
-                  Average User Success
-                </p>
-                <div className="flex items-end mt-2">
-                  <span className="text-3xl font-bold text-accent group-hover:text-accent/90 transition-colors">18.6%</span>
-                  <span className="text-gray-400 ml-2 mb-1 group-hover:text-gray-300 transition-colors">Faster Learning</span>
-                </div>
-              </div>
-              
-              <div className="rounded-lg border border-secondary/30 p-5 bg-black/40 backdrop-blur-sm hover:border-secondary/70 transition-all duration-300 group">
-                <p className="font-medium text-gray-400 text-sm flex items-center">
-                  <span className="inline-block w-2 h-2 rounded-full bg-secondary mr-2"></span>
-                  Total Active Users
-                </p>
-                <div className="flex items-end mt-2">
-                  <span className="text-3xl font-bold text-accent group-hover:text-accent/90 transition-colors">25,000+</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+            <motion.p 
+              className="mt-4 xs:mt-6 text-base xs:text-lg lg:text-xl text-gray-600 text-center md:text-left"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              LinguaSync AI uses advanced AI to personalize your language learning journey. Learn faster, retain more, and achieve fluency with adaptive lessons tailored just for you.
+            </motion.p>
+
+            <motion.div 
+              className="mt-6 xs:mt-8 lg:mt-10 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
               {isAuthenticated ? (
-                <Link href="/dashboard">
-                  <Button size="lg" className="px-6 py-6 text-lg bg-primary hover:bg-primary/90 glow-effect">
-                    Go to Dashboard
+                <Link href="/dashboard" className="w-full sm:w-auto">
+                  <Button 
+                    size="lg" 
+                    className="group relative px-4 xs:px-6 lg:px-8 py-4 xs:py-6 text-base xs:text-lg lg:text-xl overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                  >
+                    <span className="relative z-10">Go to Dashboard</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-blue-600/80 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </Button>
                 </Link>
               ) : (
                 <Button 
                   size="lg" 
-                  onClick={() => openModal("signup")}
-                  className="px-6 py-6 text-lg bg-primary hover:bg-primary/90 glow-effect"
+                  onClick={() => {
+                    const waitlistSection = document.querySelector('#waitlist');
+                    if (waitlistSection) {
+                      waitlistSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="group relative px-4 xs:px-6 lg:px-8 py-4 xs:py-6 text-base xs:text-lg lg:text-xl overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl w-full sm:w-auto"
                 >
-                  Sign Up Free
+                  <span className="relative z-10">Join Waitlist</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-blue-600/80 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </Button>
               )}
               <Button 
                 variant="outline" 
                 size="lg"
-                className="px-6 py-6 text-lg border-secondary text-secondary hover:bg-secondary/20"
+                className="w-full sm:w-auto group relative px-4 xs:px-6 lg:px-8 py-4 xs:py-6 text-base xs:text-lg lg:text-xl overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-primary/50"
                 asChild
               >
-                <a href="#features">See Features</a>
+                <a href="#features">
+                  <span className="relative z-10">See Demo</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </a>
               </Button>
-            </div>
-          </div>
-          
-          <div className="md:w-1/2 mt-16 md:mt-0">
-            <div className="relative float-animation">
-              {/* Feature image inspired by the design with the purple blob and profiles */}
-              <div className="w-full h-full max-w-lg mx-auto relative">
-                <div className="absolute inset-0 bg-primary/30 rounded-full blur-3xl"></div>
-                <div className="relative bg-primary/80 rounded-blob w-full aspect-square flex items-center justify-center overflow-hidden border border-white/10 shadow-2xl">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                      <path fill="#000000" d="M40.9,-49.2C52.4,-40.1,60.9,-26.7,66.1,-10.9C71.3,4.9,73.3,23.1,65.8,35.8C58.3,48.4,41.2,55.6,23.7,62C6.2,68.5,-11.7,74.3,-30.7,71.1C-49.7,67.9,-69.7,55.8,-76.3,38.5C-82.9,21.2,-76.1,-1.2,-67.9,-21.1C-59.6,-41,-49.9,-58.3,-36.3,-66.6C-22.8,-74.8,-5.3,-74.1,9,-68.8C23.3,-63.6,29.4,-58.2,40.9,-49.2Z" transform="translate(100 100)" />
+            </motion.div>
+
+            <motion.div 
+              className="mt-6 lg:mt-8 flex items-center justify-center md:justify-start"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+            >
+              <div className="flex -space-x-2 lg:-space-x-3">
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className={`w-8 xs:w-10 lg:w-12 h-8 xs:h-10 lg:h-12 rounded-full border-2 border-white flex items-center justify-center text-white relative overflow-hidden`}
+                    style={{
+                      backgroundColor: ['#3b82f6', '#10b981', '#8b5cf6'][i],
+                      zIndex: 3 - i
+                    }}
+                    whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 xs:w-4 lg:w-5 h-3 xs:h-4 lg:h-5">
+                      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                  </div>
-                  
-                  {/* Language bubbles */}
-                  <div className="absolute top-1/4 left-1/4 w-20 h-20 rounded-full overflow-hidden border-2 border-white shadow-lg float-animation" style={{animationDelay: '0.5s'}}>
-                    <div className="w-full h-full bg-black flex items-center justify-center">
-                      <span className="font-bold text-xl text-secondary">EN</span>
-                    </div>
-                  </div>
-                  
-                  <div className="absolute bottom-1/3 right-1/4 w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg float-animation" style={{animationDelay: '1s'}}>
-                    <div className="w-full h-full bg-black flex items-center justify-center">
-                      <span className="font-bold text-lg text-accent">FR</span>
-                    </div>
-                  </div>
-                  
-                  <div className="absolute top-1/3 right-1/4 w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-lg float-animation" style={{animationDelay: '1.5s'}}>
-                    <div className="w-full h-full bg-black flex items-center justify-center">
-                      <span className="font-bold text-lg text-primary">ES</span>
-                    </div>
-                  </div>
-                  
-                  <div className="absolute bottom-1/4 left-1/3 w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-lg float-animation" style={{animationDelay: '2s'}}>
-                    <div className="w-full h-full bg-black flex items-center justify-center">
-                      <span className="font-bold text-sm text-white">JP</span>
-                    </div>
-                  </div>
-                  
-                  {/* Connecting lines between the language bubbles */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-3/4 h-0.5 bg-white/40 transform rotate-45"></div>
-                    <div className="w-2/3 h-0.5 bg-white/40 transform -rotate-45"></div>
-                  </div>
+                  </motion.div>
+                ))}
+              </div>
+              <p className="ml-3 lg:ml-4 text-xs xs:text-sm lg:text-base text-gray-600">Join 25,000+ LinguaSync AI learners</p>
+            </motion.div>
+          </motion.div>
+
+          <motion.div 
+            className="w-full md:w-1/2 mt-8 xs:mt-10 md:mt-0 lg:mt-0"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <div className="relative group perspective-1000 max-w-[280px] xs:max-w-none lg:max-w-[500px] mx-auto">
+              <motion.div 
+                className="relative bg-white rounded-2xl shadow-2xl p-4 xs:p-6 lg:p-8 transform transition-all duration-500 group-hover:rotate-y-6 group-hover:scale-105"
+                whileHover={{ rotateY: 6, scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-2xl transform group-hover:scale-105 transition-transform duration-500"></div>
+                <div className="relative z-10">
+                  <svg
+                    viewBox="0 0 200 200"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-full h-auto"
+                  >
+                    <defs>
+                      <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.1" />
+                        <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.05" />
+                      </linearGradient>
+                      <filter id="glow">
+                        <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                        <feMerge>
+                          <feMergeNode in="coloredBlur" />
+                          <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                      </filter>
+                    </defs>
+                    <rect width="200" height="200" fill="#e6efff" rx="10" ry="10" />
+                    <g filter="url(#glow)">
+                      <circle cx="100" cy="70" r="40" fill="#3b82f6" opacity="0.3" />
+                      <circle cx="150" cy="100" r="30" fill="#10b981" opacity="0.3" />
+                      <circle cx="50" cy="120" r="25" fill="#f97316" opacity="0.3" />
+                    </g>
+                    <rect x="40" y="50" width="120" height="15" rx="5" ry="5" fill="#3b82f6" opacity="0.7" />
+                    <rect x="40" y="80" width="100" height="10" rx="5" ry="5" fill="#64748b" opacity="0.5" />
+                    <rect x="40" y="100" width="80" height="10" rx="5" ry="5" fill="#64748b" opacity="0.5" />
+                    <rect x="40" y="120" width="90" height="10" rx="5" ry="5" fill="#64748b" opacity="0.5" />
+                    <rect x="40" y="140" width="120" height="30" rx="5" ry="5" fill="#10b981" opacity="0.7" />
+                  </svg>
                 </div>
-              </div>
+              </motion.div>
+              
+              {/* Floating elements - Adjusted for mobile */}
+              <motion.div
+                className="absolute -right-2 xs:-right-4 -top-2 xs:-top-4 w-8 xs:w-12 h-8 xs:h-12 bg-blue-500 rounded-full opacity-20"
+                animate={{
+                  y: [0, -10, 0],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              />
+              <motion.div
+                className="absolute -left-2 xs:-left-4 -bottom-2 xs:-bottom-4 w-6 xs:w-8 h-6 xs:h-8 bg-green-500 rounded-full opacity-20"
+                animate={{
+                  y: [0, 10, 0],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              />
             </div>
-            
-            {/* Feature text */}
-            <div className="mt-10 text-center">
-              <div className="inline-block px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-white/10">
-                <p className="text-lg font-medium uppercase tracking-wider text-white">
-                  <span className="block text-secondary">AI-POWERED</span> 
-                  LANGUAGE LEARNING WITH <br/>
-                  <span className="text-primary">SECURITY & ANALYTICS</span>
-                </p>
-              </div>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

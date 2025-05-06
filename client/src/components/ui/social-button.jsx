@@ -1,44 +1,28 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { SiGoogle, SiGithub } from "react-icons/si";
+import { FaGoogle, FaGithub } from "react-icons/fa";
+import { motion } from "framer-motion";
 
-const SocialButton = ({ provider, className }) => {
-  const getProviderDetails = () => {
-    switch (provider) {
-      case "google":
-        return {
-          icon: <SiGoogle className="mr-2 h-4 w-4 text-secondary" />,
-          label: "Google",
-        };
-      case "github":
-        return {
-          icon: <SiGithub className="mr-2 h-4 w-4 text-accent" />,
-          label: "GitHub",
-        };
-      default:
-        return {
-          icon: null,
-          label: provider,
-        };
-    }
-  };
-
-  const { icon, label } = getProviderDetails();
-
-  const handleClick = () => {
-    // This would be where you implement actual OAuth flow
-    console.log(`Sign in with ${provider}`);
-  };
+const SocialButton = ({ provider, children }) => {
+  const Icon = provider === "google" ? FaGoogle : FaGithub;
 
   return (
-    <Button
-      variant="outline"
-      className={`w-full flex items-center justify-center border-gray-700 bg-gray-900 text-white hover:bg-gray-800 transition-colors ${className}`}
-      onClick={handleClick}
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
     >
-      {icon}
-      <span>{label}</span>
-    </Button>
+      <Button
+        variant="outline"
+        className="w-full bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+        onClick={() => {
+          // Handle social login
+          console.log(`Login with ${provider}`);
+        }}
+      >
+        <Icon className="mr-2 h-4 w-4" />
+        {children}
+      </Button>
+    </motion.div>
   );
 };
 

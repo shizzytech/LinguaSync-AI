@@ -1,16 +1,16 @@
 import express from "express";
 import { createServer } from "http";
-import { storage } from "./storage";
+import { storage } from "./storage.js";
 import { ZodError } from "zod";
 import { 
   insertUserSchema, 
   insertWaitlistEntrySchema, 
   registerSchema, 
   loginSchema 
-} from "@shared/schema";
+} from "../shared/schema.js";
 import bcrypt from "bcrypt";
 import session from "express-session";
-import { pool } from "./db";
+import { pool } from "./db.js";
 import connectPgSimple from "connect-pg-simple";
 
 export async function registerRoutes(app) {
@@ -27,9 +27,13 @@ export async function registerRoutes(app) {
       secret: process.env.SESSION_SECRET || "linguasync-secret-key",
       resave: false,
       saveUninitialized: false,
+      name: 'sessionId', // Set a custom cookie name
       cookie: { 
         secure: process.env.NODE_ENV === "production", 
-        maxAge: 86400000 // 24 hours
+        httpOnly: true,
+        sameSite: process.env.NODE_ENV === "production" ? 'strict' : 'lax',
+        maxAge: 86400000, // 24 hours
+        path: '/'
       }
     })
   );
@@ -191,9 +195,9 @@ export async function registerRoutes(app) {
     }
   });
 
-  // Use API router
+  // Mount API router
   app.use("/api", apiRouter);
 
-  const httpServer = createServer(app);
-  return httpServer;
+  // Create and return HTTP server
+  return createServer(app);
 }

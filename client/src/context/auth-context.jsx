@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
-import { apiRequest, queryClient } from "@/lib/queryClient";
+import { apiRequest } from "@/lib/queryClient";
+import { queryClient } from "@/lib/queryClient";
 
 const AuthContext = createContext(undefined);
 
@@ -14,10 +15,27 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch('/api/auth/me');
+        const res = await fetch('/api/auth/me', {
+          credentials: 'include', // Include cookies in the request
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!res.ok) {
+          if (res.status === 401) {
+            // Not authenticated - this is a normal state
+            setUser(null);
+            return;
+          }
+          throw new Error(`Auth check failed with status: ${res.status}`);
+        }
+        
         const data = await res.json();
         if (data?.user) {
           setUser(data.user);
+        } else {
+          setUser(null);
         }
       } catch (error) {
         console.error("Auth check failed", error);
@@ -32,7 +50,20 @@ export const AuthProvider = ({ children }) => {
 
   const loginMutation = useMutation({
     mutationFn: async (credentials) => {
-      const res = await apiRequest('POST', '/api/auth/login', credentials);
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+      });
+      
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || 'Login failed');
+      }
+      
       return res.json();
     },
     onSuccess: (data) => {

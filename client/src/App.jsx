@@ -2,6 +2,7 @@ import { Switch, Route } from "wouter";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
+import About from "@/pages/about";
 import { useAuth } from "./context/auth-context";
 import { useEffect, useState } from "react";
 
@@ -25,6 +26,7 @@ function App() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/about" component={About} />
       <Route path="/dashboard">
         {isAuthenticated ? <Dashboard /> : <Home />}
       </Route>

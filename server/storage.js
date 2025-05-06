@@ -1,5 +1,5 @@
-import { users, waitlistEntries } from "@shared/schema";
-import { db } from "./db";
+import { users, waitlistEntries } from "../shared/schema.js";
+import { db } from "./db.js";
 import { eq } from "drizzle-orm";
 
 export class DatabaseStorage {
